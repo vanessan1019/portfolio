@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanessa Nguyen — Video</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #f5f4f2;
+    --ink: #17161a;
+    --blue: #435c94;
+    --muted: #8a877f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 6vw;
+  }
+
+  nav .mark { font-weight: 700; font-size: 0.95rem; }
+  nav .links { display: flex; gap: 32px; font-size: 0.9rem; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+  nav a.active { color: var(--ink); border-bottom-color: var(--blue); }
+  nav a:hover { color: var(--ink); }
+
+  header { padding: 3vh 6vw 4vh; }
+
+  header h1 {
+    font-weight: 800;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin-top: 12px;
+    color: var(--muted);
+    max-width: 52ch;
+    font-size: 1.05rem;
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    padding: 0 6vw 5vh;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.15);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .filter-btn.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #f5f4f2;
+  }
+
+  .filter-btn:hover:not(.active) { border-color: var(--ink); }
+
+  /* Hero showreel, shown for Selects */
+  .hero-reel {
+    padding: 0 6vw 10vh;
+  }
+
+  .hero-thumb {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #241c2a, #0e0d0f, #1a2130);
+  }
+
+  .hero-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(245,244,242,0.94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-play::after {
+    content: '';
+    border-style: solid;
+    border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent #17161a;
+    margin-left: 4px;
+  }
+
+  .hero-caption {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .hero-caption .title { font-weight: 700; font-size: 1.1rem; }
+  .hero-caption .sub { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+
+  /* Category grid, shown when a category tab is selected */
+  .grid {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 0 6vw 10vh;
+  }
+
+  .grid.visible { display: grid; }
+
+  .card { display: flex; flex-direction: column; }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .card:nth-child(3n+1) .thumb { background: linear-gradient(160deg, #2a2018, #100e0b); }
+  .card:nth-child(3n+2) .thumb { background: linear-gradient(160deg, #1a2130, #0e0f12); }
+  .card:nth-child(3n+3) .thumb { background: linear-gradient(160deg, #201720, #0e0d0f); }
+
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(245,244,242,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 7px 0 7px 12px;
+    border-color: transparent transparent transparent #17161a;
+    margin-left: 3px;
+  }
+
+  .card-info { margin-top: 12px; }
+  .card-info .title { font-weight: 600; font-size: 0.95rem; }
+  .card-info .loc { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    nav .links { gap: 18px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="mark">VANESSA NGUYEN</span>
+  <div class="links">
+    <a href="#" class="active">Video</a>
+    <a href="#">Events</a>
+    <a href="#">Photography</a>
+  </div>
+</nav>
+
+<header>
+  <h1>Video</h1>
+  <p>Events, brand work, and quieter narrative pieces, shot and edited start to finish.</p>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="selects">Selects</button>
+  <button class="filter-btn" data-filter="events">Events</button>
+  <button class="filter-btn" data-filter="brand">Brand & Promo</button>
+  <button class="filter-btn" data-filter="story">Story / Cinematic</button>
+</div>
+
+<div class="hero-reel" id="hero">
+  <div class="hero-thumb">
+    <div class="hero-play"></div>
+  </div>
+  <div class="hero-caption">
+    <div class="title">2026 Reel</div>
+    <div class="sub">A cut of the year's strongest work, events, brand, and story, back to back.</div>
+  </div>
+</div>
+
+<div class="grid" data-cat="events">
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Club Indgo Recap</div><div class="loc">NYC, 2026</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Rooftop Pop-Up</div><div class="loc">Brooklyn, 2026</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Launch Night</div><div class="loc">NYC, 2025</div></div>
+  </div>
+</div>
+
+<div class="grid" data-cat="brand">
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Product Launch Teaser</div><div class="loc">Brand promo, 2026</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Menu Feature</div><div class="loc">Restaurant promo, 2025</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Event Series Trailer</div><div class="loc">Brand campaign, 2025</div></div>
+  </div>
+</div>
+
+<div class="grid" data-cat="story">
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Vietnam, Revisited</div><div class="loc">Travel, 2025</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">A Day in Bushwick</div><div class="loc">Personal, 2026</div></div>
+  </div>
+  <div class="card">
+    <div class="thumb"><div class="play-btn"></div></div>
+    <div class="card-info"><div class="title">Off Hours</div><div class="loc">Personal, 2025</div></div>
+  </div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const hero = document.getElementById('hero');
+  const grids = document.querySelectorAll('.grid');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      if (filter === 'selects') {
+        hero.style.display = 'block';
+        grids.forEach(g => g.classList.remove('visible'));
+      } else {
+        hero.style.display = 'none';
+        grids.forEach(g => {
+          g.classList.toggle('visible', g.dataset.cat === filter);
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
